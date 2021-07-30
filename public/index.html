@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>dev.finances$</title>
 
+    <!--styles-->
+    <link rel="stylesheet" href="icomoon/style.css" />
+
     <link rel="stylesheet" href="./style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,9 +54,17 @@
       <section id="transaction">
         <h2 class="sr-only">Transações</h2>
 
-        <a href="#" onclick="Modal.open()" class="button new"
-          >+ Nova Transação</a
-        >
+        <div class="box-buttons">
+          <a href="#" onclick="Modal.open()" class="button new"
+            >+ Nova Transação</a
+          >
+          <a href="#" onclick="Modal.open()" class="button new"
+            >Excluir transação</a
+          >
+          <a href="#" onclick="Modal.open()" class="button new"
+            >Excluir transação</a
+          >
+        </div>
 
         <table id="data-table">
           <thead>
@@ -96,7 +107,28 @@
     <div class="modal-overlay">
       <div class="modal">
         <div id="form">
-          <h2>Nova transação</h2>
+          <div class="box-title-icon grid">
+            <h2>Nova transação</h2>
+            <label for="input-image">
+              <div class="icon-attachment fs1"></div>
+              <span>Anexar</span>
+              <input
+                type="file"
+                name="image"
+                id="input-image"
+                style="display: none"
+              />
+            </label>
+          </div>
+
+          <div class="box-image">
+            <img
+              src="https://s2.glbimg.com/dLl2P7yBYMBFiuDzlbhNOX_z8DM=/0x0:3640x2376/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/9/b/7xAkyiQSKABKVOOWFp0w/2019-10-02t162142z-1-lynxmpef911b0-rtroptp-4-tech-google-acao.jpg"
+              alt=""
+              id="image-change"
+            />
+          </div>
+
           <form action="">
             <div class="input-group">
               <label class="sr-only" for="description">Descrição</label>
@@ -115,7 +147,7 @@
                 step="0.01"
                 id="amount"
                 name="amount"
-                placeholder="Descrição"
+                placeholder="Valor"
               />
               <small class="help"
                 >Use o sinal - (negativo) para despesas e , (vírgula) para casas
@@ -153,6 +185,30 @@
           document.querySelector('.modal-overlay').classList.remove('active')
         }
       }
+
+      const inputFile = window.document.getElementById('input-image')
+      let pickImage = window.document.getElementById('image-change')
+
+      inputFile.addEventListener('change', event => {
+        function toDataUrl(url, callback) {
+          var xhr = new XMLHttpRequest()
+          xhr.onload = function () {
+            var reader = new FileReader()
+            reader.onloadend = function () {
+              callback(reader.result)
+            }
+            reader.readAsDataURL(xhr.response)
+          }
+          xhr.open('GET', url)
+          xhr.responseType = 'blob'
+          xhr.send()
+        }
+
+        pickImage
+        console.log({
+          event: event.target.value
+        })
+      })
     </script>
   </body>
 </html>
