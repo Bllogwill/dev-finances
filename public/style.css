@@ -280,3 +280,55 @@ footer {
     gap: 2rem;
   }
 }
+
+/*MINHAS ALTERAÇÔES*/
+
+.box-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.box-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.box-title-icon h2 {
+  line-height: 21px;
+  padding-top: 10px;
+}
+.box-title-icon label {
+  display: flex;
+  align-items: center;
+  background: white;
+
+  width: 30px;
+  height: 30px;
+
+  transition: all 0.4s ease;
+  overflow: hidden;
+
+  cursor: pointer;
+}
+.box-title-icon label:hover {
+  width: 95.5px;
+}
+.fs1 {
+  font-size: 1rem;
+  color: var(--dark-blue);
+
+  padding: 8px;
+
+  transition: 0.3s;
+  display: inline-block;
+
+  border-radius: 5px;
+}
+.box-image {
+  width: 100%;
+  margin-top: 10px;
+  display: none;
+}
+
+.box-image img {
+  width: 100%;
+}
