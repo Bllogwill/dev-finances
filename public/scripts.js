@@ -49,6 +49,30 @@ const Transaction = {
   }
 }
 
+const DOM = {
+  addTransaction(transaction, index) {
+    const tr = document.createElement('tr')
+    tr.inneHTML = DOM.innerHTMLTransaction(transaction)
+
+    console.log(tr.innerHTML)
+  },
+  innerHTMLTransaction(transaction) {
+    const html = `
+    <tr>
+              <td class="description">${transaction.description}</td>
+              <td class="expense">${transaction.amount}</td>
+              <td class="date">${transaction.date}</td>
+              <td>
+                <img src="./assets/minus.svg" alt="Remover Transação" />
+              </td>
+            </tr>
+    `
+    return html
+  }
+}
+
+DOM.addTransaction(transaction[0])
+
 const inputFile = window.document.getElementById('input-image')
 let pickImage = window.document.getElementById('image-change')
 
