@@ -29,6 +29,12 @@ const Transactions = [
     description: 'internet',
     amount: -20000,
     date: '23/01/2021'
+  },
+  {
+    id: 4,
+    description: 'app',
+    amount: 200000,
+    date: '23/01/2021'
   }
 ]
 
@@ -50,9 +56,12 @@ const Transaction = {
 }
 
 const DOM = {
+  transactionsContanier: document.querySelector('#data-table tbody'),
   addTransaction(transaction, index) {
     const tr = document.createElement('tr')
     tr.inneHTML = DOM.innerHTMLTransaction(transaction)
+
+    DOM.transactionsContanier.appendChild(tr)
 
     console.log(tr.innerHTML)
   },
@@ -72,6 +81,12 @@ const DOM = {
 }
 
 DOM.addTransaction(transaction[0])
+DOM.addTransaction(transaction[1])
+DOM.addTransaction(transaction[2])
+
+transactions.forEach(function (transaction) {
+  DOM.addTransaction(transaction)
+})
 
 const inputFile = window.document.getElementById('input-image')
 let pickImage = window.document.getElementById('image-change')
