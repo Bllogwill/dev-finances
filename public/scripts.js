@@ -19,7 +19,7 @@ const Transactions = [
     date: '23/01/2021'
   },
   {
-    id: 1,
+    id: 2,
     description: 'website',
     amount: -500000,
     date: '23/01/2021'
@@ -56,20 +56,22 @@ const Transaction = {
 }
 
 const DOM = {
-  transactionsContanier: document.querySelector('#data-table tbody'),
+  transactionsContainer: document.querySelector('#data-table tbody'),
   addTransaction(transaction, index) {
     const tr = document.createElement('tr')
-    tr.inneHTML = DOM.innerHTMLTransaction(transaction)
+    tr.innerHTML = DOM.innerHTMLTransaction(transaction)
 
-    DOM.transactionsContanier.appendChild(tr)
-
-    console.log(tr.innerHTML)
+    DOM.transactionsContainer.appendChild(tr)
   },
   innerHTMLTransaction(transaction) {
+    const CSSclass = transaction.amount > 0 ? 'income' : 'expense'
+
+    const amount = Utils.formatCurrency(transaction.amount)
+
     const html = `
     <tr>
               <td class="description">${transaction.description}</td>
-              <td class="expense">${transaction.amount}</td>
+              <td class="${CSSclass}">${transaction.amount}</td>
               <td class="date">${transaction.date}</td>
               <td>
                 <img src="./assets/minus.svg" alt="Remover Transação" />
@@ -80,11 +82,13 @@ const DOM = {
   }
 }
 
-DOM.addTransaction(transaction[0])
-DOM.addTransaction(transaction[1])
-DOM.addTransaction(transaction[2])
+const Utils = {
+  formatCurrency(value) {
+    console.log(value)
+  }
+}
 
-transactions.forEach(function (transaction) {
+Transactions.forEach(function (transaction) {
   DOM.addTransaction(transaction)
 })
 
