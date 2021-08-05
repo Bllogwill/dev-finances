@@ -45,13 +45,13 @@ const Transactions = [
 
 const Transaction = {
   incomes() {
-    //somar as entradas
+    return 'cheguei'
   },
   expenses() {
-    //somar as saidas
+    return 'Aqui'
   },
   total() {
-    //entradas - saidas
+    return 'Discover'
   }
 }
 
@@ -71,7 +71,7 @@ const DOM = {
     const html = `
     <tr>
               <td class="description">${transaction.description}</td>
-              <td class="${CSSclass}">${transaction.amount}</td>
+              <td class="${CSSclass}">${amount}</td>
               <td class="date">${transaction.date}</td>
               <td>
                 <img src="./assets/minus.svg" alt="Remover Transação" />
@@ -79,12 +79,29 @@ const DOM = {
             </tr>
     `
     return html
+  },
+
+  updateBalace() {
+    document.getElementById('iconmeDispaly').innerHTML = ' soma das entradas'
+    document.getElementById('expenseDispaly').innerHTML = ' soma das saidas'
+    document.getElementById('totalDispaly').innerHTML = 'total'
   }
 }
 
 const Utils = {
   formatCurrency(value) {
-    console.log(value)
+    const signal = Number(value) < 0 ? '-' : ''
+
+    value = String(value).replace(/\D/g, '')
+
+    value = Number(value) / 100
+
+    value = value.tolocalString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+
+    return sinal + value
   }
 }
 
