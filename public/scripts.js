@@ -21,7 +21,7 @@ const Transactions = [
   {
     id: 2,
     description: 'website',
-    amount: -500000,
+    amount: 500000,
     date: '23/01/2021'
   },
   {
@@ -45,18 +45,43 @@ const Transactions = [
 
 const Transaction = {
   incomes() {
-    //somar as entradas
+    let income = 0
+    //pegar todas as transações
+    //para cada transação,
+    Transactions.forEach(transaction => {
+      //se for maior que zero
+      if (transaction.amount > 0) {
+        //somar uma variavel e somar uma variavel
+        income += transaction.amount
+      }
+    })
+
+    return income
   },
+
   expenses() {
-    //somar as saidas
+    let expense = 0
+    //pegar todas as transações
+    //para cada transação,
+    Transactions.forEach(transaction => {
+      //se for maior que zero
+      if (transaction.amount < 0) {
+        //somar uma variavel e somar uma variavel
+        expense += transaction.amount
+      }
+    })
+
+    return expense
   },
+
   total() {
-    //entradas - saidas
+    return Transaction.incomes() + Transaction.expenses()
   }
 }
 
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
+
   addTransaction(transaction, index) {
     const tr = document.createElement('tr')
     tr.innerHTML = DOM.innerHTMLTransaction(transaction)
@@ -71,7 +96,7 @@ const DOM = {
     const html = `
     <tr>
               <td class="description">${transaction.description}</td>
-              <td class="${CSSclass}">${transaction.amount}</td>
+              <td class="${CSSclass}">${amount}</td>
               <td class="date">${transaction.date}</td>
               <td>
                 <img src="./assets/minus.svg" alt="Remover Transação" />
@@ -79,18 +104,45 @@ const DOM = {
             </tr>
     `
     return html
+  },
+
+  updateBalace() {
+    document.getElementById('incomeDisplay').innerHTML = Utils.formatCurrency(
+      Transaction.incomes()
+    )
+
+    document.getElementById('expenseDisplay').innerHTML = Utils.formatCurrency(
+      Transaction.expenses()
+    )
+
+    document.getElementById('totalDisplay').innerHTML = Utils.formatCurrency(
+      Transaction.total()
+    )
   }
 }
 
 const Utils = {
   formatCurrency(value) {
-    console.log(value)
+    const signal = Number(value) < 0 ? '-' : ''
+
+    value = String(value).replace(/\D/g, '')
+
+    value = Number(value) / 100
+
+    value = value.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+
+    return signal + value
   }
 }
 
 Transactions.forEach(function (transaction) {
   DOM.addTransaction(transaction)
 })
+
+DOM.updateBalace()
 
 const inputFile = window.document.getElementById('input-image')
 let pickImage = window.document.getElementById('image-change')
