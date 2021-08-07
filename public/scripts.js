@@ -21,7 +21,7 @@ const Transactions = [
   {
     id: 2,
     description: 'website',
-    amount: -500000,
+    amount: 500000,
     date: '23/01/2021'
   },
   {
@@ -45,18 +45,43 @@ const Transactions = [
 
 const Transaction = {
   incomes() {
-    return 'cheguei'
+    let income = 0
+    //pegar todas as transações
+    //para cada transação,
+    Transactions.forEach(transaction => {
+      //se for maior que zero
+      if (transaction.amount > 0) {
+        //somar uma variavel e somar uma variavel
+        income += transaction.amount
+      }
+    })
+
+    return income
   },
+
   expenses() {
-    return 'Aqui'
+    let expense = 0
+    //pegar todas as transações
+    //para cada transação,
+    Transactions.forEach(transaction => {
+      //se for maior que zero
+      if (transaction.amount < 0) {
+        //somar uma variavel e somar uma variavel
+        expense += transaction.amount
+      }
+    })
+
+    return expense
   },
+
   total() {
-    return 'Discover'
+    return Transaction.incomes() + Transaction.expenses()
   }
 }
 
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
+
   addTransaction(transaction, index) {
     const tr = document.createElement('tr')
     tr.innerHTML = DOM.innerHTMLTransaction(transaction)
@@ -82,9 +107,17 @@ const DOM = {
   },
 
   updateBalace() {
-    document.getElementById('iconmeDispaly').innerHTML = ' soma das entradas'
-    document.getElementById('expenseDispaly').innerHTML = ' soma das saidas'
-    document.getElementById('totalDispaly').innerHTML = 'total'
+    document.getElementById('incomeDisplay').innerHTML = Utils.formatCurrency(
+      Transaction.incomes()
+    )
+
+    document.getElementById('expenseDisplay').innerHTML = Utils.formatCurrency(
+      Transaction.expenses()
+    )
+
+    document.getElementById('totalDisplay').innerHTML = Utils.formatCurrency(
+      Transaction.total()
+    )
   }
 }
 
@@ -96,18 +129,20 @@ const Utils = {
 
     value = Number(value) / 100
 
-    value = value.tolocalString('pt-BR', {
+    value = value.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     })
 
-    return sinal + value
+    return signal + value
   }
 }
 
 Transactions.forEach(function (transaction) {
   DOM.addTransaction(transaction)
 })
+
+DOM.updateBalace()
 
 const inputFile = window.document.getElementById('input-image')
 let pickImage = window.document.getElementById('image-change')
